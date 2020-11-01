@@ -84,9 +84,11 @@ class BackportServiceProvider extends ServiceProvider
             Blade::withoutDoubleEncoding();
         }
 
-        // Load settings into laravel from database.
-        foreach (Settings\Setting::all(['key', 'value']) as $setting) {
-            config([config('backport.setting.prefix') . '.' . $setting['key'] => $setting['value']]);
+        if (Schema::hasTable('settings')) {
+            // Load settings into laravel from database.
+            foreach (Settings\Setting::all(['key', 'value']) as $setting) {
+                config([config('backport.setting.prefix') . '.' . $setting['key'] => $setting['value']]);
+            }
         }
     }
 
