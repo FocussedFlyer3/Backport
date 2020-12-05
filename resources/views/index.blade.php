@@ -59,6 +59,11 @@
                     @include('backport::partials.header')
                     {{-- begin: Content --}}
                     @yield('content')
+
+                    {{-- HTML INJECTIONS --}}
+                    {!! Backport::html() !!}
+
+                    {{-- SCRIPT INJECTIONS --}}
                     {!! Backport::script() !!}
                     {{-- end: Content --}}
 
