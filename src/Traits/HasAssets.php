@@ -7,6 +7,11 @@ trait HasAssets
     /**
      * @var array
      */
+    public static $html = [];
+
+    /**
+     * @var array
+     */
     public static $script = [];
 
     /**
@@ -41,12 +46,7 @@ trait HasAssets
         'vendor/backport/vendors/base/vendors.bundle.js',
         'vendor/backport/themes/default/base/scripts.bundle.js',
         'vendor/backport/app/scripts/bundle/app.bundle.js',
-        'vendor/backport/app/scripts/custom/init.js',
-
-
-
-
-
+        'vendor/backport/app/scripts/custom/init.js'
     ];
 
     /**
@@ -149,6 +149,20 @@ trait HasAssets
         }
 
         return static::$baseJs;
+    }
+
+    /**
+     * @param string $html
+     *
+     * @return array|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public static function html($html = '')
+    {
+        if (!empty($html)) {
+            return self::$html = array_merge(self::$html, (array) $html);
+        }
+
+        return view('backport::partials.html', ['html' => array_unique(self::$html)]);
     }
 
     /**
